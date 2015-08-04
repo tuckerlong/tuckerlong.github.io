@@ -18,8 +18,7 @@ function newDiscussion() {
 	
 	discussionObject.save(null, {
 		success: function(result) {
-		
-			alert("yay! it worked");
+			//alert("yay! it worked");
 			window.location = "computerScience.html";
 		},
 		error: function(object, error) {
@@ -35,6 +34,17 @@ function loadDiscussions() {
 	var discussions = document.createElement("div");
 	discussions.className = "jumbotron";
 	
+	var newDiscussion = document.createElement("div");
+	newDiscussion.className = "col-md-12";
+	
+	var but = document.createElement("a");
+	but.className = "btn btn-default";
+	but.href = "newDiscussion.html";
+	but.innerHTML = "Create New Discussion";
+	newDiscussion.appendChild(but);
+	
+	discussions.appendChild(newDiscussion);
+	discussions.appendChild(document.createElement("hr"));
 	
 	var DiscussionObject = Parse.Object.extend("DiscussionObject");
 	var query = new Parse.Query(DiscussionObject);
@@ -73,7 +83,8 @@ function loadDiscussions() {
 				discussions.appendChild(outer);
 			}
 			
-			discussions.style.height = (results.length/3 * 375) + "px";
+			console.log(Math.floor((results.length-1)/3));
+			discussions.style.height = (Math.floor((results.length-1)/3) * 305) + 400+ "px";
 		},
 		error: function(object, error) {
 			console.log("Error " + error + " " + object);
